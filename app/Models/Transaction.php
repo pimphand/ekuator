@@ -12,7 +12,9 @@ class Transaction extends Model
     use HasFactory, SoftDeletes, HasUuidTrait;
 
     protected $primaryKey = 'uuid';
+
     protected $keyType = 'string';
+
     public $incrementing = false;
 
     protected $fillable = [
@@ -25,12 +27,12 @@ class Transaction extends Model
         'total',
     ];
 
-    function user()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'uuid');
     }
 
-    function product()
+    public function product()
     {
         return $this->belongsTo(Product::class, 'product_id', 'uuid');
     }

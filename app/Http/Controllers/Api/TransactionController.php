@@ -34,6 +34,7 @@ class TransactionController extends Controller
 
         return TransactionResource::collection($transactions);
     }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -41,12 +42,12 @@ class TransactionController extends Controller
     {
         $product = Product::where('uuid', $request->product_id)->first();
 
-        if (!$product) {
-            return response(['message' => "Produk tidak ditemukan.", "success" => false], 400);
+        if (! $product) {
+            return response(['message' => 'Produk tidak ditemukan.', 'success' => false], 400);
         }
 
         if ($product->quantity < $request->quantity) {
-            return response(['message' => "Stok barang tidak mencukupi.", "success" => false], 400);
+            return response(['message' => 'Stok barang tidak mencukupi.', 'success' => false], 400);
         }
 
         $tax = $product->price * 0.1;

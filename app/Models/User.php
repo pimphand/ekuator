@@ -16,7 +16,9 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasUuidTrait;
 
     protected $primaryKey = 'uuid';
+
     protected $keyType = 'string';
+
     public $incrementing = false;
 
     /**

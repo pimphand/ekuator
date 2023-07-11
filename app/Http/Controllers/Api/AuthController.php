@@ -3,17 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\Registered;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    function login(Request $request)
+    public function login(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
@@ -32,11 +31,11 @@ class AuthController extends Controller
         ]);
     }
 
-    function register(Request $request)
+    public function register(Request $request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -44,16 +43,17 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role
+            'role' => $request->role,
         ]);
 
-        return response(["success" => true]);
+        return response(['success' => true]);
     }
 
-    function logout()
+    public function logout()
     {
         $user = Auth::user();
         $user->tokens()->delete();
-        return response(["success" => true]);
+
+        return response(['success' => true]);
     }
 }

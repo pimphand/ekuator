@@ -7,7 +7,6 @@ use App\Http\Requests\ProductStoreRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -37,7 +36,8 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
         Product::create($request->validated());
-        return response(['message' => "Produk Berhasil di simpan", "success" => false], 200);
+
+        return response(['message' => 'Produk Berhasil di simpan', 'success' => false], 200);
     }
 
     /**
@@ -56,7 +56,8 @@ class ProductController extends Controller
     public function update(ProductStoreRequest $request, string $id)
     {
         Product::findOrFail($id)->update($request->validated());
-        return response(['message' => "Produk Berhasil di ubah", "success" => false], 200);
+
+        return response(['message' => 'Produk Berhasil di ubah', 'success' => false], 200);
     }
 
     /**
@@ -65,6 +66,7 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         Product::destroy($id);
-        return response(['message' => "Produk Berhasil di hapus", "success" => false], 200);
+
+        return response(['message' => 'Produk Berhasil di hapus', 'success' => false], 200);
     }
 }
